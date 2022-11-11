@@ -72,16 +72,9 @@ def main(argv):
     if current_pid is not None:
         utils.print_error("Explorer for this configuration file is already running")
         return 1
-    
-    utils.file_write(cfg.pid_file,utils.get_pid())
 
-    current_pid=utils.file_read(cfg.pid_file)
-    utils.log_write("Explorer started, PID: " + str(current_pid))
-    if not server.start():
-        utils.remove_file(cfg.pid_file)
-        return 1
+    server.start()
 
-    utils.remove_file(cfg.pid_file)
     utils.log_write("Explorer stopped")
 
 
