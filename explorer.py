@@ -73,10 +73,10 @@ def main(argv):
         utils.print_error("Explorer for this configuration file is already running")
         return 1
 
-    utils.log_write("Starting explorer...")
+    print("Starting explorer...")
     server.start()
 
-    utils.log_write("Explorer stopped")
+    print("Explorer stopped")
 
 
 if __name__ == '__main__':
