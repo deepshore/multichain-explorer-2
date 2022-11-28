@@ -59,13 +59,13 @@ def main(argv):
             process_id=int(current_pid)
             print("Explorer found, PID " + str(process_id))
             if cfg.action == 'stop':
-                utils.log_write("Stopping Explorer, PID: " + str(current_pid))
+                print("Stopping Explorer, PID: " + str(current_pid))
                 print("Sending stop signal")
                 try:
                     os.kill(int(current_pid),signal.SIGTERM)
                     utils.remove_file(cfg.pid_file)
                 except OSError:
-                    utils.log_write("Explorer already stopped")
+                    print("Explorer already stopped")
                     utils.remove_file(cfg.pid_file)
             return 0
 
