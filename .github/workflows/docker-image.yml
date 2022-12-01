@@ -14,5 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Log in to registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag multichain-explorer:$(date +%s)
+      run: docker build . --file Dockerfile --tag multichain-explorer:latest
+    - name: push container image to registry
+      run: docker push ghcr.io/deepshore/multichain-explorer:latest
