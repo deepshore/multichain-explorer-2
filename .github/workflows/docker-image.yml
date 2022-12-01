@@ -20,9 +20,9 @@ jobs:
       run: docker build . --file Dockerfile --tag ghcr.io/deepshore/multichain-explorer:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     - name: push container image to registry
       run: |
-        docker push ghcr.io/deepshore/multichain-explorer:$GITHUB_REF_NAME-$GITHUB_RUN_ID
-        if echo ${{ $GITHUB_REF_NAME }} | grep -c "master"
+        docker push ghcr.io/deepshore/multichain-explorer:${{ env.GITHUB_REF_NAME }}-${{ env.GITHUB_RUN_ID }}
+        if echo ${{ env.GITHUB_REF_NAME }} | grep -c "master"
         then
-        docker tag ghcr.io/deepshore/multichain-explorer:$GITHUB_REF_NAME-$GITHUB_RUN_ID ghcr.io/deepshore/multichain-explorer:latest
+        docker tag ghcr.io/deepshore/multichain-explorer:${{ env.GITHUB_REF_NAME }}-${{ env.GITHUB_RUN_ID}} ghcr.io/deepshore/multichain-explorer:latest
         docker push ghcr.io/deepshore/multichain-explorer:latest
         fi
