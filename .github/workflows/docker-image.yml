@@ -17,6 +17,12 @@ jobs:
     - name: Log in to registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ghcr.io/deepshore/multichain-explorer:latest
+      run: docker build . --file Dockerfile --tag ghcr.io/deepshore/multichain-explorer:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     - name: push container image to registry
-      run: docker push ghcr.io/deepshore/multichain-explorer:latest
+      run: |
+        docker push ghcr.io/deepshore/multichain-explorer:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+        if echo ${{ $GITHUB_REF_NAME }} | grep -c "master"
+        then
+        docker tag ghcr.io/deepshore/multichain-explorer:$GITHUB_REF_NAME-$GITHUB_RUN_ID ghcr.io/deepshore/multichain-explorer:latest
+        docker push ghcr.io/deepshore/multichain-explorer:latest
+        fi
